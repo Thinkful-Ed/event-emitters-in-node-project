@@ -1,0 +1,25 @@
+{
+  "name": "using-events-emitters-project",
+  "version": "1.0.0",
+  "description": "A project on node event emitters",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thinkful-Ed/using-events-emitters-project.git"
+  },
+  "keywords": [
+    "events",
+    "event",
+    "emitters",
+    "pubsub"
+  ],
+  "author": "Evan Schneider",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thinkful-Ed/using-events-emitters-project/issues"
+  },
+  "homepage": "https://github.com/Thinkful-Ed/using-events-emitters-project#readme"
+}
