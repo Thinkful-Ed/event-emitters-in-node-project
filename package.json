@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/Thinkful-Ed/using-events-emitters-project/issues"
   },
-  "homepage": "https://github.com/Thinkful-Ed/using-events-emitters-project#readme"
+  "homepage": "https://github.com/Thinkful-Ed/using-events-emitters-project#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
 }
