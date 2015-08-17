@@ -1,14 +1,18 @@
 var http = require('http');
 
-var app = require('express')();
-var users = [];
+var server = require('express')();
 
-app.get('/api/users/add/:user', function (request, response) {
-    users.push(request.params.user);
+var db = require('./db');
 
-    response.send(users);
+server.get('/', function (request, response) {
+    db.all(function (err, data) {
+        response.send(data);
+    });
 });
 
-app.listen(3000, function () {
-    console.log("Listenting on", 3000)
+server.listen(3000, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+
+    console.log('Listening at http://%s:%s', host, port);
 });
