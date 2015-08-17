@@ -22,10 +22,6 @@ function write (database, callback) {
     });
 }
 
-read(function (err, database) {
-    write(database);
-});
-
 module.exports = {
     all: function all (callback) {
         read(callback);
