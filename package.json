@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Thinkful-Ed/using-events-emitters-project#readme",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "object-assign": "^3.0.0"
   }
 }

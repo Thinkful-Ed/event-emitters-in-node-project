@@ -1,37 +1,76 @@
 var fs = require('fs');
+// npm
+var assign = require('object-assign');
 
 var FILENAME = './db.json';
 
+var _cache;
+
+read();
+
 function read (callback) {
-    fs.readFile(FILENAME, function (err, database) {
+    _cache ? callback(null, _cache) : fs.readFile(FILENAME, function (err, database) {
         if (err)
             console.warn("Unexpected error reading database:\n", err.message);
 
-        database = database ? JSON.parse(database) : [];
+        try {
+            _cache = JSON.parse(database);
+        }
+        catch (e) {}
 
-        callback && callback(null, database);
+        _cache = _cache || [];
+
+        callback && callback(null, _cache);
     });
 }
 
-function write (database, callback) {
-    fs.writeFile(FILENAME, JSON.stringify(database, null, 4), function (err) {
+function write (callback) {
+    fs.writeFile(FILENAME, JSON.stringify(_cache, null, 4), function (err) {
         if (err)
             console.warn("Unexpected error writing database:\n", err.message);
 
-        callback && callback(null, database);
+        callback && callback(null, _cache);
+    });
+}
+function all (callback) {
+    read(callback);
+}
+
+function find (url, callback) {
+    read(function (err, database) {
+        database = database.filter(function (row) {
+            return url === row.url
+        });
+
+        callback(err, data[0]);
+    });
+}
+
+function upsert (url, data, callback) {
+    if (! callback) {
+        callback = data;
+        data = void 0;
+    }
+
+    read(function (err, database) {
+        var row = database.filter(function (row) {return url === row.url})[0];
+
+        if (! row) {
+            row = {url: url, createdAt: new Date()};
+            database.push(row);
+        }
+
+        if (data)
+            assign(row, data)
+
+
+        write(function (err, database) {
+            callback(err, row); // >>==> arrow, get it?
+        });
+
     });
 }
 
 module.exports = {
-    all: function all (callback) {
-        read(callback);
-    },
-
-    insert: function insert (url, callback) {
-        read(function (err, data) {
-            data.push({url: url, createdAt: new Date()});
-
-            write(data, callback);
-        });
-    }
+    all: all, find: find, upsert: upsert
 }

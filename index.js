@@ -11,7 +11,7 @@ app.get('/', function (request, response) {
 });
 
 app.get('/image/new', function (request, response) {
-    db.insert(request.query.imageUrl, function (err, data) {
+    db.upsert(request.query.imageUrl, function (err, data) {
         response.send(data);
     });
 });
